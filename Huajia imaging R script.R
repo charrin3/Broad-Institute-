@@ -94,12 +94,22 @@ mergenucleicytoFAM83H<-merge(nucleimeanFAM83Hrenamed,cytomeanFAM83Hrenamed)
 #create a new column for nuclei to cyto ratio ck1a
 mergenucleicytoFAM83H2<-mutate(mergenucleicytoFAM83H, nuclei_cyto=Mean_FAM83H_Nucleus/Mean_FAM83H_cyto)
 View(mergenucleicytoFAM83H2)
+
 #graph nuclei to cyto ratios ck1a
 ggplot(data=mergenucleicytoFAM83H2, aes(x=Metadata_drug, y=nuclei_cyto)) + 
   geom_bar(stat='identity', fill="blue") + 
   xlab("Condition") + 
   ylab("NucleitoCyto_Ratio") +
   ggtitle("Nucleus to Cytoplasm Ratio of FAM83H")
+
+#can be used to check summary means and sd calculated by function data_summary above 
+nuclei %>%
+  dplyr::group_by(Metadata_drug) %>%
+  dplyr::summarise(
+    count = n(),
+    mean_Intensity = mean(Intensity_MeanIntensity_fam83h), 
+    sd_Intensity = sd(Intensity_MeanIntensity_fam83h)
+  )
 
 
 
